@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Onsite Knowledge Transfer</title>
+  <link rel="alternate" type="application/rss+xml" title="frittt.com" href="feed/index.html">
+  <link href="http://fonts.googleapis.com/css?family=Raleway:700,300" rel="stylesheet"
+  type="text/css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/prettify.css">
+  <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+  <style type="text/css">
+    .CodeMirror {
+      font-size: 12px;
+      height: auto;
+      line-height: 18px;
+    }
+    .btn {
+      line-height: 1.5em;
+      border-radius: 4px;
+      border: 1px solid #666;
+    }
+    .btn.copy {
+      position: absolute;
+      z-index: 3;
+      right: 0;
+      display: none;
+    }
+    form:hover > .btn.copy {
+      display: block;
+    }
+    textarea {
+      display:block !important;
+      position:absolute;
+      left:-999px;
+    }
+  </style>
+}
+</head>
+<body>
+  <div class="wrapper">
+   <header>
+    <div class="container">
+      <h2 class="lone-header">Onsite Knowledge Transfer</h2>
+    </div>
+  </header>
+  <section>
+    <div class="container">
+      <ul class="docs-nav">
+        <li><strong>Getting Started</strong></li>
+        <li><a href="#admin2" class="cc-active">Admin2</a></li>
+        <li><a href="#best_practice" class="cc-active">Best Practice</a></li>
+        <li><a href="#css_hacks" class="cc-active">CSS Hacks</a></li>
+        <li class="separator"></li>
+        <li><strong>Widgets</strong></li>
+        <li><a href="#sale_validator" class="cc-active">Sale Validator</a></li>
+        <li><a href="#switch" class="cc-active">Switch Content</a></li>
+        <li><a href="#countdown" class="cc-active">Countdown</a></li>
+        <li><a href="#voucher_code" class="cc-active">Voucher Code</a></li>
+        <li><a href="#shop_the_look" class="cc-active">Shop the Look</a></li>
+        <li><a href="#bullet_teaser" class="cc-active">Slider - Bullet Teaser</a></li>
+        <li class="separator"></li>
+        <li><strong>Campaign</strong></li>
+        <li><a href="#tt" class="cc-active">TT - Top Teaser</a></li>
+        <li><a href="#tcl" class="cc-active">TCL &amp; TCS - Top Category</a></li>
+        <li><a href="#others" class="cc-active">TP, KCI, KCNI, ...</a></li>
+        <li><a href="#gr" class="cc-active">Global Ribbon</a></li>
+        <li><a href="#short_block" class="cc-active">Short Block Sale + Navi</a></li>
+        <li><a href="#fallback" class="cc-active">FALLBACKs &amp; DoubleClick</a></li>
+        <li><a href="#dy" class="cc-active">Dynamic Yield</a></li>
+      </ul>
+      <div class="docs-content">
+        <h2> Getting Started</h2>
+        <h3 id="admin2">Admin2</h3>
+        <p>
+          We are using Admin2 tool for CMS content management.<br>
+          For testing we have <a target="_blank" href="http://admin2-testing6.home24.de/">TESTING 6</a> &amp; <a target="_blank" href="http://admin2-testing10.home24.de/">TESTING 10</a> environments and
+          there's only one way how to <a target="_blank" href="http://admin2.home24.de/">GO LIVE</a>.<br>
+          Most important blocks:
+          <ul>
+            <li>onsiteGlobalCms - #33196</li>
+            <li>HomepageTopTeaser - #39118</li>
+            <li>HomepageTopCategory - #39122</li>
+            <li>L1_moebel_topteaser - #39210</li>
+            <li>L1_Garten_TopTeaser - #39190</li>
+          </ul>
+        </p>
+        <h3 id="best_practice"> Best Practice</h3>
+        <ol>
+          <li>Keep the local copy of old version</li>
+          <li>When you creating new block/page:
+            <ul>
+              <li>Create DE version &amp; save (ID: 12345)</li>
+              <li>Switch domain and language on current file &amp; update content based on country</li>
+              <li>Don't create brand new block/page per every country!!!</li>
+              <li>AT &amp; CH-DE version is usually same as DE (except links: /lagerraeumung/ => /sale/ &amp; /lampen-shop/ => /lampen/)</li>
+              <li>CH-DE requires '/de' prefix for each url (/sale/ => /de/sale/)</li>
+              <li>FR version needs content and link translations...</li>
+              <li>CH-FR version is usually same as DE (except links: /promos/ => /fr/sale/)</li>
+              <li>CH-FR requires '/fr' prefix for each url (/jardin/ => /fr/jardin/)</li>
+            </ul>
+          </li>
+          <li>Use ###HOST|cdn###media instead of https://cdn.home24.net/static/media</li>
+          <li>Format &amp; validate code before submit (to prevent errors)</li>
+          <li>If you want to create custom style, create custom class (DO NOT override global classes from main.css)</li>
+          <li>GOOD LUCK (<a target="_blank" href="https://confluence.home24.de/display/it/CMS+content+guidelines">more info</a>)</li>
+        </ol>
+        <h3 id="css_hacks"> CSS Hacks</h3>
+        <p>
+          <form><textarea data-type="codeHTML" id="css_hacks.html"></textarea></form>
+        </p>
+        <hr>
+        <h2> Widgets</h2>
+        <h3 id="sale_validator">Sale Validator</h3>
+        <p>
+          Sale validator is a custom script, which we are using in case we need to display countdown widget or switch/hide custom block(sale) on specific date.
+          Just load script at the bottom of your block/content.<br>
+          <strong>&lt;script src="###HOST|cdn###media/om/lp/general/scripts/sale-validator.js"&gt;&lt;/script&gt;</strong>
+          <form><textarea data-type="codeHTML" id="sale-validator.js"></textarea></form>
+        </p>
+        <h3 id="switch">Switch Content</h3>
+        <p>
+          You can use sale-validator script for hiding and displaying of content (sale).
+          Just apply attributes data-valid-to or data-valid-from &amp; don't forget to load sale-validator script!   
+          <form><textarea data-type="codeHTML" id="switch.html"></textarea></form>
+        </p>
+        <h3 id="countdown">Countdown</h3>
+        <p>
+          All you need is to specify data-valid date (JS date format).
+          If you want modify styles of timer, it will be nice to create custom class ('custom-class') &amp; use it for creation of all css rules.        
+          <form><textarea data-type="codeHTML" id="countdown_styles.html"></textarea></form>
+          German version
+          <form><textarea data-type="codeHTML" id="countdown_de.html"></textarea></form>
+          French version
+          <form><textarea data-type="codeHTML" id="countdown_fr.html"></textarea></form>
+        </p>
+        <h3 id="voucher_code">Voucher Code</h3>
+        <p>
+          Usually there is an image as background &amp; you have to place voucher over it.
+          Voucher is just simple readonly input containing specific value (selected on click).
+          It is necessary to specify absolute position &amp; wrapper position should be relative.
+          If you want to center element (position: absolute; right: 0; left: 0; margin: auto;).         
+          <form><textarea data-type="codeHTML" id="voucher.html"></textarea></form>
+        </p>
+        <h3 id="shop_the_look">Shop the Look</h3>
+        <p>          
+          <form><textarea data-type="codeHTML" id="shopthelook.html"></textarea></form>
+        </p>
+        <h3 id="bullet_teaser">Slider - Bullet Teaser</h3>
+        <p>          
+          <form><textarea data-type="codeHTML" id="slider.html"></textarea></form>
+        </p>
+        <h3 id="price">Price widget</h3>
+        <p>          
+          <form><textarea data-type="codeHTML" id="price.html"></textarea></form>
+          <a target="_blank" href="https://confluence.home24.de/display/it/CMS+content+guidelines">more info about Widgets</a>
+        </p>
+        <h2> Campaing</h2>
+        <h3 id="tt">TT - Top Teaser</h3>
+        <p>
+          Most simple TT consist of the one image - wrapped with specific link.
+          We use to run simple tracking, so just follow the structure of onclick event (update eventAction &amp; eventLabel).         
+          <form><textarea data-type="codeHTML" id="tt_basic.html"></textarea></form>
+        </p>
+        <p>
+          WE have a problem here with cms-teaser-img when fallback is not hidden.
+          TT with teaser text (usually generated from excel).
+          A teaser consists of image on background &amp; text block, that floats on the top.
+          teaser text position is specified by class (cms-teaser-text--right | cms-teaser-text--left).
+          cms-call-to-action__hover class represents area, that activate hover state of cta button.
+          <form><textarea data-type="codeHTML" id="tt_old.html"></textarea></form>
+        </p>
+        <p>
+          We are using this template for group of global sale (parent) and specific sales (childrens).<br>
+          <strong>!!! SPECIFY CUSTOM CLASS per each TT instead of 'sale-kids' !!!.</strong><br>
+          We use to run simple tracking, so just follow the structure of onclick event (update eventAction &amp; eventLabel).<br>
+          <strong>As first</strong> you should update all links &amp; image.<br>
+          <strong>Second</strong> - specify global css rules = height, width &amp; position of tt__link.<br>
+          Child links could be positioned vertically (tt__link { right: ...px }) or horizontally (tt__link { top: ...px }).
+          <strong>Third</strong> - modify position or color (use border-left color) of arrow if it's necessary.<br>
+          <strong>Finally</strong> you need to specify custom inline styles of all tt__links in the way that all arrow-icons will appear on pixel perfect position.
+          Usually there is DE and FR version so you have to adapt links position based on backgorund image and translate content.
+          <form><textarea data-type="codeHTML" id="tt_links.html"></textarea></form>
+        </p>
+        <h3 id="tcl">TCL - Top Category Large</h3>
+        <p>
+          Usually we have 2 TCL's on the homepage (LEFT &amp; RIGHT) - wrapped in block (cms-block__cell cms-block__cell--w50). 
+          With TCL you have to keep on the mind, that styles and layout should be compatible with other TCL (left or right).
+          Just follow the structure (sub-headline -> headline -> button) and everything should be fine.       
+          <form><textarea data-type="codeHTML" id="tcl_basic.html"></textarea></form>
+          If you want to use countdown, place the widget into headline container.
+          If you want to hide TCL block after sale is over, apply data-valid-to attribute &amp; sale-validator script.
+          <form><textarea data-type="codeHTML" id="tcl_countdown.html"></textarea></form>
+        </p>
+        <h3 id="tcs">TCS - Top Category Small</h3>
+        <p>
+          Usually we have 4 TCS's on the homepage - wrapped in block (cms-block__cell cms-block__cell--w25).     
+          <form><textarea data-type="codeHTML" id="tcs_basic.html"></textarea></form>
+        </p>
+        <h3 id="others">TP - Top Product, KCI - Key Campaign (Banner), KCNI - Key Campaign (New In), ...</h3>
+        <p> 
+          Basically, all these blocks could be build from custom HTML, but most common structure is image + link, occasionally combination of widgets like shopthelook or cta button.
+        </p>
+        <h3 id="gr">Global Ribbon</h3>
+        <p>
+          GLOBAL RIBBON - Top banner with horizontal links.
+          We are using this template for group of global sale (parent) and specific sales (childrens).
+          We use to run simple tracking, so just follow the structure of onclick event (update eventAction &amp; eventLabel).
+          As first you should update all links &amp; image.
+          Adaptation process:
+          <ol>
+            <li>Update background image</li>
+            <li>Update default sale__link width if it's necessary</li>
+            <li>Update first/parent link width (left position should be 0)</li>
+            <li>Update second/child link right position right, that it will fit to background based on delimiter position</li>
+            <li>Update global .arrow-right-icon - modify position (right: ...px; bottom: ...px;)</li>
+            <li>If second/child link is completed &amp; arrow fits, update color (use border-left color) of arrow if it's necessary</li>
+            <li>Continue with other links (right: ...px; width: ...px;)</li>
+          </ol>
+          <form><textarea data-type="codeHTML" id="gr_links.html"></textarea></form>
+        </p>
+        <p>
+          GLOBAL RIBBON - Top banner with countdown           
+          <form><textarea data-type="codeHTML" id="gr_countdown.html"></textarea></form>
+        </p>
+        <h3 id="short_block">Short Block Sale + Navi</h3>
+        <p>
+          When you want to create short block with navigation, usually there is a main sale &amp; few subcategories/links.
+          If you use this general sample, you will create 1 global block, so you can apply 1 ID to each category.
+          All you need to do - update background image for each target/link ( #0 - is main/global image ) and short script will switch background image.
+          You can setup a minimal width (stretch until fits to 1 row) and color of active links.<br>
+          When you updating links, do not forget last backslash!.<br>
+          Do not forget update disclaimer date &amp; use correct language version.          
+          <form><textarea data-type="codeHTML" id="short_block.html"></textarea></form>
+        </p>
+        <h3 id="fallback">FALLBACKs &amp; DoubleClick</h3>
+        <p>
+          For displaying and tracking of TT &amp; TCL we are using Google AdServer - Doubleclick.<br>
+          In CMS system we already have a structure of scripts/links from Doubleclick server. 
+          Each script/link has a fallback in case that user using AdBlock. 
+          Inside of '[FALLBACK]' section there should be a HTML code (TT, TCL, ...) &amp;
+          same content (check FALLBACKs Convertor) should be created on AdServer as well.          
+          <form><textarea data-type="codeHTML" id="fallback_basic.html"></textarea></form>
+        </p>
+        <h3 id="convertor">FALLBACKs Convertor</h3>
+        <p>
+          Usually we need to build content for Google AdServer - Doubleclick from TT or TCL.<br>
+          HTML code will be slightly different than normal fallback/TT/TCL.<br>
+          Convertor functionality:
+          <ul>
+            <li>Applying prefix for all links '%chttp://www.home24.{domain}'</li>
+            <li>Replacing '###HOST|cdn###' with 'https://cdn.home24.net/static/'</li>
+            <li>Correcting link '/lagerraeumung' to '/sale' - except DE</li>
+            <li>Correcting link '/lampen-shop' to '/lampen' - except DE</li>
+            <li>Correcting link '/promos' to '/sale' - except FR</li>
+          </ul>
+        </p>
+        <p>
+          FALLBACK - paste your German version
+          <form><textarea data-type="codeHTML" id="fallback_DE.html"></textarea></form>
+        </p>
+        <p>
+          FALLBACK - paste your French version
+          <form><textarea data-type="codeHTML" id="fallback_FR.html"></textarea></form>
+          <button id="generator" class="btn">Generate DoubleClick content</button>
+        </p>
+        <p>
+          DoubleClick content
+          <form><textarea data-type="codeHTML" id="fallback_generated.html"></textarea></form>      
+        </p>
+        <h3 id="dy">Dynamic Yield</h3>
+        <p>
+          DY enables us to create 3 types of Smart Actions (Overlay, Notification, JavaScript Action).
+          We are using Home24 Global environment, so each Smart Action is running globaly for all domains.
+          It's necessary to specify custom targeting experience per each domain/country.
+          Experience has 3 sections:<br>
+          <ul>
+            <li>Targeting - condition setup (URL, domain, valid Date, device type, ...)</li>
+            <li>Content - HTML + CSS + JS + Variables</li>
+            <li>Settings - Frequency, Primary Objective, ...</li>
+          </ul>
+          There's many ways how to setup DY Smart Actions, but easiest/fastest way is to duplicate &amp; modify existing TEMPLATES.
+          <a target="_blank" href="https://adm.dynamicyield.com/">GOTO Dynamic Yield</a>
+        </p>
+        <p>
+          <a target="_blank" href="https://adm.dynamicyield.com/a?locale=en#/smarts/actions/75190?subType=4"><strong>Template Promo</strong></a><br>
+          DY notification/banner is usually placed on bottom of the screen, in the middle, no shadows and so on...
+          To force this behaviour, it's necessary to apply custom CSS:
+          <form><textarea data-type="codeHTML" id="dy_styles.html"></textarea></form>      
+          Template Promo is optimized, so it should be easy to modify it in few steps:
+          <ol>
+            <li>Place your images to folder Z:\S3\OnlineMarketing\onsite\teaser\DY_assets</li>
+            <li>Duplicate <a target="_blank" href="https://adm.dynamicyield.com/a?locale=en#/smarts/actions/75190?subType=4">Template Promo</a> Action</li>
+            <li>Create custom name (Alenja Promo)</li>
+            <li>Update Targeting for each Experience</li>
+            <li>For testing reasons keep a custom URL parameter (?tralala)</li>
+            <li>Update Content - dynamic values should be variables</li>
+            <li>If it's necessary, modify HTML + CSS + JS</li>
+            <li>Don't forget to sync changes between experiences</li>
+            <li>Settings should be specified by CRO</li>
+            <li>Save all experiences</li>
+            <li>Save &amp; Publish your Smart Action</li>
+            <li>Promo should be "LIVE" in few minutes</li>
+            <li>Check all countries - should be similar to this <a target="_blank" href="http://www.home24.de/?tralala">example</a></li>
+            <li>If everything looks fine, remove custom URL parameter (?tralala) &amp; publish Smart Action again!</li>
+          </ol>
+        </p>
+        <p>
+          <a target="_blank" href="https://adm.dynamicyield.com/a?locale=en#/smarts/actions/75154?subType=JAVASCRIPT"><strong>Template Insert</strong></a> &amp; 
+          <a target="_blank" href="https://adm.dynamicyield.com/a?locale=en#/smarts/objects/75152"><strong>Template-Short-Block</strong></a><br>
+          DY block insert is usually placed as a short block above category name for L1 (before .page-header), above filter for L2 (before .js-list-view-form) or as banner under breadcrumbs/navi (after .breadcrums).
+          We need to create block as Smart Object &amp; include it into Smart Actions with specific targeting conditions.<br>
+          Template Insert &amp; Template-Short-Block are optimized, so it should be easy to modify it in few steps:
+          <ol>
+            <li>Place your images to folder Z:\S3\OnlineMarketing\onsite\teaser\DY_assets</li>
+            <li>Duplicate <a target="_blank" href="https://adm.dynamicyield.com/a?locale=en#/smarts/objects/75152">Template-Short-Block</a> (Smart Object)</li>
+            <li>Create custom name (Manchester-short-block)</li>
+            <li>Update Content - dynamic values should be variables</li>
+            <li>If it's necessary, modify HTML + CSS + JS</li>
+            <li>Don't forget to sync changes between experiences</li>
+            <li>Settings should be specified by CRO</li>
+            <li>Save all experiences</li>
+            <li>Save &amp; Publish your Smart Object</li>
+            <li>Duplicate <a target="_blank" href="https://adm.dynamicyield.com/a?locale=en#/smarts/actions/75154?subType=JAVASCRIPT">Template Insert</a> (Smart Action)</li>
+            <li>Create custom name (Manchester Insert)</li>
+            <li>Update Targeting for each Experience</li>
+            <li>For testing reasons keep a custom URL parameter (?tralala)</li>
+            <li>Update Content - Smart Object Identifier = name of short-block (Manchester-short-block)</li>
+            <li>Update Content - Insertation Method &amp; Targeted Element Selector - usually 1 of these 3 options (before .page-header | before .js-list-view-form | after .breadcrums) </li>
+            <li>Settings should be specified by CRO</li>
+            <li>Save &amp; Publish your Smart Action</li>
+            <li>Insert should be "LIVE" in few minutes</li>
+            <li>Check all countries - should be similar to this <a target="_blank" href="http://www.home24.de/moebel/?hidecms&tralala">example</a></li>
+            <li>If everything looks fine, remove custom URL parameter (?tralala) &amp; publish Smart Action again!</li>
+          </ol>
+        </p>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="">
+      <p> &copy; Copyright Frittt Templates. All Rights Reserved.</p>
+    </div>
+  </footer>
+</div>
+<script src="js/jquery.min.js"></script> 
+<script src="js/prettify/prettify.js"></script> 
+<script src="js/layout.js"></script>
+<script src="codemirror/lib/codemirror.js"></script>
+<script src="codemirror/mode/xml/xml.js"></script>
+<script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="codemirror/mode/javascript/javascript.js"></script>
+<script type="text/javascript">
+  $('textarea[data-type="codeHTML"]').each(function(i, e){
+    $(e).load("samples/" + e.id, function( response, status, xhr ) {
+      if ( status == "error" ) {
+        var msg = "Sorry but there was an error: ";
+        $( e ).html( msg + xhr.status + " " + xhr.statusText );
+      } else {
+        $( e ).val(response);
+        e._cm = CodeMirror.fromTextArea(e, {
+          lineNumbers: true,
+          lineWrapping: true,
+          mode: e.id.match(/\.js$/) ? "javascript" : "htmlmixed"
+        });
+        $('<button class="btn copy">Copy</button>').click(function(evt){
+          evt.preventDefault();
+          $( e ).val(e._cm.getValue()).select();
+          try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Copying text command was ' + msg);
+            if(successful) {
+              var btn = $(this), val = btn.text(); btn.text("Copied!");
+              setTimeout(function(){btn.text(val)}, 1200);
+            }
+          } catch (err) {
+            console.log('Oops, unable to copy');
+          }
+        }).insertAfter(e);
+      }
+    });
+  });
+  
+  $('#generator').click(function(){
+
+    function convert(t, domain){
+      var _t = t.replace(/href="/g, 'href="%chttp://www.home24.' + domain).replace(/###HOST\|cdn###/g, 'https://cdn.home24.net/static/');
+      if(domain != "de")
+        _t = _t.replace(/\/lagerraeumung/g, '/sale').replace(/\/lampen-shop/g, '/lampen');
+      if(domain != "fr")
+        _t = _t.replace(/\/promos/g, '/sale');
+      return _t;
+    }
+
+    var de = $('[id="fallback_DE.html"]')[0]._cm.getValue();
+    var fr = $('[id="fallback_FR.html"]')[0]._cm.getValue();
+    var cm = $('[id="fallback_generated.html"]')[0]._cm;
+
+    cm.setValue(
+      "<!-- DE -->\n" +
+      convert(de, "de") +
+      "\n\n<!-- AT -->\n" +
+      convert(de, "at") +
+      "\n\n<!-- CH-DE -->\n" +
+      convert(de, "ch/de") +
+      "\n\n<!-- CH-FR -->\n" +
+      convert(fr, "ch/fr") +
+      "\n\n<!-- FR -->\n" +
+      convert(fr, "fr")
+      );
+
+    cm.refresh();
+    var btn = $(this), val = btn.text(); btn.text("DoubleClick Content generated!");
+    setTimeout(function(){btn.text(val)}, 1200);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<style>
+
+  nav.cms-content-navigation--basic {
+    background: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    letter-spacing:1px;
+    font-size:16px;
+    height:45px;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+  }
+
+  nav.cms-content-navigation--basic a {
+    color:#000;
+    font-weight:normal;
+    display: block;
+  }
+
+  nav.cms-content-navigation--basic a:hover,
+  nav.cms-content-navigation--basic a:visited,
+  nav.cms-content-navigation--basic a:active,
+  nav.cms-content-navigation--basic a:focus {
+    color:#000;
+    text-decoration: none;
+  }
+
+  nav.cms-content-navigation--basic a:focus {
+    text-decoration: none;
+  }
+
+  nav.cms-content-navigation--basic:not(.navigation--fixed) {
+    position: absolute;
+    bottom: 0;
+  }
+
+  nav.cms-content-navigation--basic .cms-content-navigation__item {
+    display: inline-block;
+    text-transform: none;
+    line-height: 42px;
+    font-size: 0.9em;
+    padding: 0 2em;
+    vertical-align: middle;
+    border-bottom: 3px solid rgba(0,0,0,0);
+  }
+
+  nav.cms-content-navigation--basic .cms-content-navigation__item.active, nav.cms-content-navigation--basic .cms-content-navigation__item:hover{
+    border-bottom: 3px solid #eaeaea;
+  }
+
+  #global_sale .cms-hero {
+    -webkit-transition : all 1s ease;
+    transition : all 1s ease;
+    position: relative;
+    text-align: center;
+    height: 240px;
+    font-family: 'proxima-nova';
+    color: #ba1715;
+    background-repeat: no-repeat;
+    margin: auto;
+    background-position: 50%;
+  }
+  
+  #global_sale[data-target='#0'] .cms-hero {
+    background-image: url(###HOST|cdn###media/om/onsite/teaser/722x193_smallbanner/de_bettensale_lp_main.jpg);
+  }
+  
+  #global_sale[data-target='#1'] .cms-hero {
+    background-image: url(###HOST|cdn###media/om/onsite/teaser/722x193_smallbanner/de_bettensale_lp_boxspringbetten.jpg);
+  }
+  
+  #global_sale[data-target='#2'] .cms-hero {
+    background-image: url(###HOST|cdn###media/om/onsite/teaser/722x193_smallbanner/de_bettensale_lp_massivholzbetten.jpg);
+  }
+  
+  #global_sale[data-target='#3'] .cms-hero {
+    background-image: url(###HOST|cdn###media/om/onsite/teaser/722x193_smallbanner/de_bettensale_lp_polsterbetten.jpg);
+  }
+  
+  #global_sale[data-target='#4'] .cms-hero {
+    background-image: url(###HOST|cdn###media/om/onsite/teaser/722x193_smallbanner/de_bettensale_lp_himmelbetten.jpg);
+  }
+
+  #global_sale .cms-content-navigation__item.active, #global_sale .cms-content-navigation__item:hover{
+    border-bottom: 3px solid #6ED2F0;  /* setup of active color */
+  }
+
+  nav.cms-content-navigation--basic .cms-content-navigation__item {
+    min-width: 150px;     /* setup size of links */
+  }
+
+</style>
+
+<div id="global_sale" class="cms-content" style="margin-bottom: 20px;">
+
+  <div class="cms-hero">
+    <div class="nav-wrapper">
+      <nav class="cms-content-navigation--basic">
+        <div class="row">
+          <div class="column">
+            <div style="margin:auto;">
+              <ul class="cms-content-navigation__list">
+                <li class="cms-content-navigation__item"><a class="cms-content-navigation__link" href="/sale-aktion/betten-sale/boxspringbetten/" data-target="#1">Boxspringbetten</a></li>
+                <li class="cms-content-navigation__item"><a class="cms-content-navigation__link" href="/sale-aktion/betten-sale/massivholzbetten/" data-target="#2">Massivholzbetten</a></li>
+                <li class="cms-content-navigation__item"><a class="cms-content-navigation__link" href="/sale-aktion/betten-sale/polsterbetten/" data-target="#3">Polsterbetten</a></li>
+                <li class="cms-content-navigation__item"><a class="cms-content-navigation__link" href="/sale-aktion/betten-sale/himmelbetten/" data-target="#4">Himmelbetten</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="column">
+            <p style="font-size: 10px; color: #333; text-align: right;">*Preisaktion gültig bis 04.05.2016.</p>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<!-- compare all links with current url & update data-target attribute (default value is #0 - global sale) -->
+<script type="text/javascript">
+  $('#global_sale .cms-content-navigation__link').each(function(i, link){
+    var l = $(link);
+    if(l.attr("href") == location.pathname){
+      $("#global_sale").attr("data-target", l.attr("data-target")); l.parent().addClass('active');
+    }
+  });
+  $("#global_sale").attr("data-target") || $("#global_sale").attr("data-target", "#0");
+</script>
